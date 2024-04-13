@@ -55,6 +55,8 @@ def __main__():
     print("Choose image to paint")
     imagepath = askopenfilename(initialdir=r'C:\Users\user\Pictures', filetypes=[('JPG files', '*.jpg')])
     convertimage(imagepath)
+    print("Processing image...")
+    sleep(5)
 
     seconds = int(input("Seconds to open paint: "))
     print(f"{seconds} seconds to start. open paint\n")
@@ -63,6 +65,11 @@ def __main__():
         binary_matrix = pickle.load(f)
 
     print("Start painting\n")
+
+    #click((COLORS['C'][0], COLORS['C'][1]))
+    #click((COLORS['M'][0], COLORS['M'][1]))
+    #click((COLORS['Y'][0], COLORS['Y'][1]))
+    #click((COLORS['K'][0], COLORS['K'][1]))
 
     pressed = False
     for y, row in enumerate(binary_matrix):

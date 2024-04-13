@@ -39,7 +39,7 @@ def getclick(x, y, button, pressed, clickbuff=clickbuff):
 def main():
     pyautogui.FAILSAFE = False
     filename = input("Name of paint program: ")
-    seconds = int(input("Seconds to open paint: "))
+    seconds = int(input(f"Seconds to open {filename}: "))
     print(f"{seconds} seconds to open paint.\n")
     sleep(seconds)
     winsound.Beep(440, 1000)
