@@ -1,23 +1,15 @@
 from pynput.mouse import Controller, Button
 from time import sleep
 
-from environs import Env
-
 import pyautogui
 
 from imgconvert import convertimage
 import pickle
+from tkinter.filedialog import askopenfilename
 
-# coords for my paint
-env = Env()
-env.read_env()
+import getcoords
 
 mouse = Controller()
-
-
-def pos(var):
-    values = list(map(int, env.list(var)))
-    return (values[0], values[1])
 
 
 def click(xy, times=1, side='left'):
@@ -46,31 +38,41 @@ def release(xy, side='left'):
 
 def __main__():
     pyautogui.FAILSAFE = False
-    image = input('Image name or path with extension: ')
-    convertimage(image)
 
-    print("5 seconds to start. open paint\n")
-    sleep(5)
+    newfield = input("New template (y/n)? ")
+    if newfield == 'y':
+        getcoords.main()
 
-    with open(f"{image.split('.')[0]}_matrix.pkl", 'rb') as f:
+    print("Choose program template")
+    filepath = askopenfilename(
+        initialdir='coords',
+        filetypes=[('Pickle files', '*.pkl')])
+
+    with open(filepath, 'rb') as f:
+        COLORS = pickle.load(f)
+        FIELD = pickle.load(f)
+
+    print("Choose image to paint")
+    imagepath = askopenfilename(initialdir=r'C:\Users\user\Pictures', filetypes=[('JPG files', '*.jpg')])
+    convertimage(imagepath)
+
+    seconds = int(input("Seconds to open paint: "))
+    print(f"{seconds} seconds to start. open paint\n")
+    sleep(seconds)
+    with open(f"matrix/{imagepath.split(r'/')[-1].split('.')[0]}_matrix.pkl", 'rb') as f:
         binary_matrix = pickle.load(f)
 
-    print("Start\n")
-
-    click(pos('BRUSH'))
-    sleep(0.1)
-    click(pos('BLACK'))
-    sleep(0.1)
+    print("Start painting\n")
 
     pressed = False
     for y, row in enumerate(binary_matrix):
         for x, pixel in enumerate(row):
             if pixel == 0 and not pressed:
-                press((pos("STARTCOORDS")[0] + x, pos("STARTCOORDS")[1] + y))
+                press((FIELD['START'][0] + x, FIELD['START'][1] + y))
                 pressed = True
                 sleep(0.05)
             elif pixel == 1 and pressed:
-                release((pos("STARTCOORDS")[0] + x, pos("STARTCOORDS")[1] + y))
+                release((FIELD['START'][0] + x, FIELD['START'][1] + y))
                 pressed = False
     print("Done")
 
