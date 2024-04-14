@@ -1,3 +1,6 @@
+import threading
+
+from pynput import keyboard
 from pynput.mouse import Controller, Button
 from time import sleep
 
@@ -8,6 +11,9 @@ import pickle
 from tkinter.filedialog import askopenfilename
 
 import getcoords
+import os
+
+import asyncio
 
 mouse = Controller()
 
@@ -36,6 +42,20 @@ def release(xy, side='left'):
         mouse.release(Button.left)
 
 
+def on_press(keyboardEvent=None):
+    if str(keyboardEvent.key) == "'c'":
+        print("Exiting...")
+        os._exit(1)
+
+
+def checkKeyboardEvents():
+    with keyboard.Events() as keyboardEvents:
+        keyboardEvent = keyboardEvents.get(0.1)
+        if keyboardEvent != None:
+            if "Press" in str(keyboardEvent):
+                on_press(keyboardEvent)
+
+
 def __main__():
     pyautogui.FAILSAFE = False
 
@@ -54,7 +74,7 @@ def __main__():
 
     print("Choose image to paint")
     imagepath = askopenfilename(initialdir=r'C:\Users\user\Pictures', filetypes=[('JPG files', '*.jpg')])
-    convertimage(imagepath)
+    convertimage(imagepath, FIELD)
     print("Processing image...")
     sleep(5)
 
@@ -66,10 +86,10 @@ def __main__():
 
     print("Start painting\n")
 
-    #click((COLORS['C'][0], COLORS['C'][1]))
-    #click((COLORS['M'][0], COLORS['M'][1]))
-    #click((COLORS['Y'][0], COLORS['Y'][1]))
-    #click((COLORS['K'][0], COLORS['K'][1]))
+    # click((COLORS['C'][0], COLORS['C'][1]))
+    # click((COLORS['M'][0], COLORS['M'][1]))
+    # click((COLORS['Y'][0], COLORS['Y'][1]))
+    # click((COLORS['K'][0], COLORS['K'][1]))
 
     pressed = False
     for y, row in enumerate(binary_matrix):
@@ -84,4 +104,15 @@ def __main__():
     print("Done")
 
 
+def run_program():
+    while True:
+        sleep(0.05)
+        checkKeyboardEvents()
+
+
+keyboard_thread = threading.Thread(target=run_program)
+keyboard_thread.daemon = True
+keyboard_thread.start()
+
 __main__()
+
