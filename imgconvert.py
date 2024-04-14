@@ -19,7 +19,7 @@ def convertimage(imagepath, FIELD):
         print("Image is too big. Resizing...")
         width, height = [fieldsize(FIELD)[i] if gray_image.shape[i] > fieldsize(FIELD)[i] else gray_image.shape[i] for i in range(2)]
         gray_image = cv2.resize(src=gray_image, dsize=(height, width), interpolation=cv2.INTER_CUBIC)
-    print(f"Resized| width: {gray_image.shape[1]}, height: {gray_image.shape[0]}")
+        print(f"Resized| width: {gray_image.shape[1]}, height: {gray_image.shape[0]}")
     # save gray image as binary image
     cv2.imwrite(f"test/{imagepath.split(r'/')[-1].split('.')[0]}_gray.jpg", gray_image)
 
