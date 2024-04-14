@@ -13,8 +13,6 @@ from tkinter.filedialog import askopenfilename
 import getcoords
 import os
 
-import asyncio
-
 mouse = Controller()
 
 
@@ -76,7 +74,7 @@ def __main__():
     imagepath = askopenfilename(initialdir=r'C:\Users\user\Pictures', filetypes=[('JPG files', '*.jpg')])
     convertimage(imagepath, FIELD)
     print("Processing image...")
-    sleep(5)
+    sleep(1)
 
     seconds = int(input("Seconds to open paint: "))
     print(f"{seconds} seconds to start. open paint\n")
@@ -92,6 +90,7 @@ def __main__():
     # click((COLORS['K'][0], COLORS['K'][1]))
 
     pressed = False
+    mouse.position = (FIELD['START'][0], FIELD['START'][1])
     for y, row in enumerate(binary_matrix):
         for x, pixel in enumerate(row):
             if pixel == 0 and not pressed:
@@ -115,4 +114,3 @@ keyboard_thread.daemon = True
 keyboard_thread.start()
 
 __main__()
-
