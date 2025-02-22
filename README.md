@@ -1,5 +1,7 @@
 # Automated Painting Tool
 
+![GitHub last commit](https://img.shields.io/github/last-commit/ugine-bor/AutoPainter)
+
 Automate your digital artwork in paint programs using predefined coordinates and image processing!
 
 ## Repository Structure
