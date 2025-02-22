@@ -31,7 +31,7 @@ Automate your digital artwork in paint programs using predefined coordinates and
 1. Clone repository:
 ```bash
 git clone https://github.com/ugine-bor/AutoPainter.git
-cd auto-paint
+cd AutoPainter
 ```
 
 2. Install dependencies:
