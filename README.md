@@ -27,13 +27,13 @@ Automate your digital artwork in paint programs using predefined coordinates and
 
 1. Clone repository:
 ```bash
-git clone https://github.com/yourusername/auto-paint.git
+git clone https://github.com/ugine-bor/auto-paint.git
 cd auto-paint
 ```
 
 2. Install dependencies:
 ```bash
-pip install pynput opencv-python numpy pyautogui Pillow
+pip install -r requirements.txt
 ```
 
 ## Usage
