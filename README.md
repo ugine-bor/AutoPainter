@@ -13,6 +13,7 @@ Automate your digital artwork in paint programs using predefined coordinates and
 ├── cleaner.py       # Cleans test and matrix folders
 ├── getcoords.py     # Records button coordinates for your paint program
 ├── imgconvert.py    # Converts images to paintable matrix format
+├── requirements.txt # requirements
 └── main.py          # Main automation script
 ```
 
@@ -27,7 +28,7 @@ Automate your digital artwork in paint programs using predefined coordinates and
 
 1. Clone repository:
 ```bash
-git clone https://github.com/ugine-bor/auto-paint.git
+git clone https://github.com/ugine-bor/AutoPainter.git
 cd auto-paint
 ```
 
